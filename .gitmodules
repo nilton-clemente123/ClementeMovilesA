@@ -1,3 +1,6 @@
 [submodule "Semana2/Laboratorio2"]
 	path = Semana2/Laboratorio2
 	url = https://github.com/nilton-clemente123/lab02-carrito-clemente.git
+[submodule "Semana1/lab01-holamundo-clemente"]
+	path = Semana1/lab01-holamundo-clemente
+	url = https://github.com/nilton-clemente123/lab01-holamundo-clemente.git
