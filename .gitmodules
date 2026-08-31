@@ -4,3 +4,9 @@
 [submodule "Semana1/lab01-holamundo-clemente"]
 	path = Semana1/lab01-holamundo-clemente
 	url = https://github.com/nilton-clemente123/lab01-holamundo-clemente.git
+[submodule "Semana3/TareaTeoria/ClementeMovilesA"]
+	path = Semana3/TareaTeoria/ClementeMovilesA
+	url = https://github.com/nilton-clemente123/ClementeMovilesA.git
+[submodule "Semana3/TareaTeoria/SistemaCuotas-Clemente"]
+	path = Semana3/TareaTeoria/SistemaCuotas-Clemente
+	url = https://github.com/nilton-clemente123/SistemaCuotas-Clemente.git
