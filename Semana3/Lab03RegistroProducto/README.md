@@ -9,6 +9,10 @@ Este es un trabajo academico que consiste en registrar productos introduciendo e
 
 ### Capturas del emulador
 
+<img width="352" height="776" alt="image" src="https://github.com/user-attachments/assets/a66f9160-5cf3-48e7-9b1c-6a96f0644d77" />
+
+<img width="346" height="771" alt="image" src="https://github.com/user-attachments/assets/4468bd9c-7a9e-4bf1-a21f-efae7cc420ca" />
+
 
 #### ¿Qué pasaría si declaras las variables de los campos SIN remember?
 
