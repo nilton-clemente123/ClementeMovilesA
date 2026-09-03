@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat.enableEdgeToEdge
 import com.clemente.lab03registroproducto.ui.theme.Lab03RegistroProductoTheme
 
 class MainActivity : ComponentActivity() {
@@ -53,8 +54,12 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
     var nombre by remember { mutableStateOf("") }
     var precio by remember { mutableStateOf("") }
     var cantidad by remember { mutableStateOf("") }
+
     var mostrarResumen by remember { mutableStateOf(false) }
 
+    var errorNombre by remember { mutableStateOf(false) }
+    var errorPrecio by remember { mutableStateOf(false) }
+    var errorCantidad by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -96,31 +101,96 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
                 value = nombre,
                 onValueChange = { nombre = it },
                 label = { Text("Nombre del producto") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+
+                isError = errorNombre,
+
+                supportingText = {
+                    if (errorNombre) {
+                        Text(
+                            text = "El nombre no puede quedar vacio",
+                            color = MaterialTheme.colorScheme.error
+                        )
+                    }
+                }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
             Row(modifier = Modifier.fillMaxWidth()) {
                 OutlinedTextField(
-                    value= precio,
-                    onValueChange = {precio= it},
+                    value = precio,
+                    onValueChange = { precio = it },
                     label = { Text("Precio(S/)") },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+
+                    isError = errorPrecio,
+
+                    supportingText = {
+                        if (errorPrecio) {
+                            Text(
+                                text = "El precio no puede quedar vacio",
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                    }
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 OutlinedTextField(
-                    value=cantidad,
-                    onValueChange = {cantidad = it},
+                    value = cantidad,
+                    onValueChange = { cantidad = it },
                     label = { Text("Cantidad(S/)") },
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+
+                    isError = errorCantidad,
+
+                    supportingText = {
+                        if (errorCantidad) {
+                            Text(
+                                text = "La cantidad no puede quedar vacia",
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        }
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(24.dp))
-            Button(
-                onClick = { mostrarResumen = true },
+            Row(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("AGREGAR PRODUCTO")
+                Button(
+                    onClick = {
+                        errorNombre = nombre.isBlank()
+                        errorPrecio = precio.isBlank()
+                        errorCantidad = cantidad.isBlank()
+
+                        if (!errorNombre && !errorPrecio && !errorCantidad) {
+                            mostrarResumen = true
+                        }
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text(text="AGREGAR PRODUCTO",
+                        textAlign = TextAlign.Center)
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Button(
+                    onClick = {
+                        nombre = ""
+                        precio = ""
+                        cantidad = ""
+
+                        errorNombre = false
+                        errorPrecio = false
+                        errorCantidad = false
+
+                        mostrarResumen = false
+                    },
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Text("LIMPIAR")
+                }
             }
 
             Spacer(modifier = Modifier.height(24.dp))
