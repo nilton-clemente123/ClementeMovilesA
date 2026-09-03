@@ -1,3 +1,14 @@
+## REGISTRO DE PRODUCTOS MEJORADO CON IA
+
+### Nombre: Nilton Javier
+
+
+### Descripcion
+
+Este es un trabajo academico que consiste en registrar productos introduciendo el nombre, su precio y su cantidad 
+
+## Mejora con IA
+
 | Prompt que use | Que genero Gemini | Que acepte o corregi |
 |---|---|---|
 | <img width="1000" height="767" alt="image" src="https://github.com/user-attachments/assets/8e36d848-6f31-47f9-889a-dc6f0a453967" /> |Se agregó una validación al campo Nombre del producto para evitar que quede vacío. Si el usuario intenta registrar el producto sin ingresar un nombre, el campo muestra un estilo de error y el mensaje "El nombre no puede quedar vacio" en color rojo.|No realize ninguna coreccion, ya que el campo de texto para colocar el nombre del producto puede admitir diferentes caracteres como numeros o letras|
