@@ -61,6 +61,9 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
     var errorPrecio by remember { mutableStateOf(false) }
     var errorCantidad by remember { mutableStateOf(false) }
 
+    var precioInvalido by remember { mutableStateOf(false) }
+    var cantidadInvalida by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             Surface(
@@ -123,12 +126,17 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
                     label = { Text("Precio(S/)") },
                     modifier = Modifier.weight(1f),
 
-                    isError = errorPrecio,
+                    isError = errorPrecio || precioInvalido,
 
                     supportingText = {
                         if (errorPrecio) {
                             Text(
                                 text = "El precio no puede quedar vacio",
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        } else if (precioInvalido) {
+                            Text(
+                                text = "Ingrese un precio decimal valido",
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
@@ -141,12 +149,17 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
                     label = { Text("Cantidad(S/)") },
                     modifier = Modifier.weight(1f),
 
-                    isError = errorCantidad,
+                    isError = errorCantidad || cantidadInvalida,
 
                     supportingText = {
                         if (errorCantidad) {
                             Text(
                                 text = "La cantidad no puede quedar vacia",
+                                color = MaterialTheme.colorScheme.error
+                            )
+                        } else if (cantidadInvalida) {
+                            Text(
+                                text = "Ingrese una cantidad entera valida",
                                 color = MaterialTheme.colorScheme.error
                             )
                         }
@@ -159,11 +172,22 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
             ) {
                 Button(
                     onClick = {
+
                         errorNombre = nombre.isBlank()
                         errorPrecio = precio.isBlank()
                         errorCantidad = cantidad.isBlank()
 
-                        if (!errorNombre && !errorPrecio && !errorCantidad) {
+
+                        precioInvalido = precio.isNotBlank() && precio.toDoubleOrNull() == null
+                        cantidadInvalida = cantidad.isNotBlank() && cantidad.toIntOrNull() == null
+
+                        if (
+                            !errorNombre &&
+                            !errorPrecio &&
+                            !errorCantidad &&
+                            !precioInvalido &&
+                            !cantidadInvalida
+                        ) {
                             mostrarResumen = true
                         }
                     },
@@ -184,6 +208,8 @@ fun PantallaRegistro(modifier: Modifier = Modifier) {
                         errorNombre = false
                         errorPrecio = false
                         errorCantidad = false
+                        precioInvalido = false
+                        cantidadInvalida = false
 
                         mostrarResumen = false
                     },
