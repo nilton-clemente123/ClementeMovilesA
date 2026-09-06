@@ -95,6 +95,38 @@ fun pantallaPrincipal() {
         mutableFloatStateOf(0f)
     }
 
+
+    var redondearPromedio by remember {
+        mutableStateOf(false)
+    }
+
+    var confirmarNotas by remember {
+        mutableStateOf(false)
+    }
+
+    var promedioCalculado by remember {
+        mutableStateOf(false)
+    }
+
+    val promedioPonderado =
+        notaFundamentos * 0.20 +
+                notaPoo * 0.25 +
+                notaMoviles * 0.30 +
+                notaBaseDatos * 0.25
+
+
+    val promedioFinal: Double =
+        if (redondearPromedio) {
+            promedioPonderado.roundToInt().toDouble()
+        } else {
+            promedioPonderado
+        }
+
+
+
+
+
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -153,6 +185,56 @@ fun pantallaPrincipal() {
                     notaBaseDatos = it
                 }
             )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Text("Redondear promedio final")
+
+                Switch(
+                    checked = redondearPromedio,
+                    onCheckedChange = {
+                        redondearPromedio = it
+                    }
+                )
+            }
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Checkbox(
+                    checked = confirmarNotas,
+                    onCheckedChange = {
+                        confirmarNotas = it
+                    }
+                )
+
+                Text("Confirmo que las notas son correctas")
+            }
+
+
+            Button(
+                onClick = {
+                    promedioCalculado = true
+                },
+                enabled = confirmarNotas,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("CALCULAR PROMEDIO")
+            }
+
+            if (promedioCalculado) {
+                Text(
+                    text = "Promedio final: ${
+                        String.format(Locale.US, "%.2f", promedioFinal)
+                    }"
+                )
+            }
+
         }
     }
 }
