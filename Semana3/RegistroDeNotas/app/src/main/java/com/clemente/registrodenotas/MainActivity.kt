@@ -82,6 +82,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun pantallaPrincipal() {
 
+    var notaFundamentos by remember {
+        mutableFloatStateOf(0f)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -104,6 +108,15 @@ fun pantallaPrincipal() {
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
+
+            cursoSlider(
+                texto = "Fundamentos de Programación",
+                peso = 20,
+                nota = notaFundamentos,
+                onNotaChange = {
+                    notaFundamentos = it
+                }
+            )
         }
     }
 }
@@ -114,6 +127,45 @@ fun pantallaPrincipal() {
 fun PantallaPreview() {
     RegistroDeNotasTheme {
         pantallaPrincipal()
+    }
+}
+
+
+@Composable
+fun cursoSlider(
+    texto: String,
+    peso: Int,
+    nota: Float,
+    onNotaChange: (Float) -> Unit
+) {
+
+    Column(
+        modifier = Modifier.padding(vertical = 7.dp)
+    ) {
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            Text(
+                text = "$texto ($peso%)",
+                fontWeight = FontWeight.Medium
+            )
+
+            Text(
+                text = nota.toInt().toString(),
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Slider(
+            value = nota,
+            onValueChange = onNotaChange,
+            valueRange = 0f..20f,
+            steps = 19,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
