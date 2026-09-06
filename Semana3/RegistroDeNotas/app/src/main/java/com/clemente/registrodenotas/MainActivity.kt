@@ -70,9 +70,50 @@ class MainActivity : ComponentActivity() {
         setContent {
             RegistroDeNotasTheme {
 
+                pantallaPrincipal()
+
             }
         }
     }
 }
 
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun pantallaPrincipal() {
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("Registro de Notas")
+                }
+            )
+        }
+    ) { innerPadding ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
+
+            Text(
+                text = "Notas del ciclo",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+        }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun PantallaPreview() {
+    RegistroDeNotasTheme {
+        pantallaPrincipal()
+    }
+}
 
