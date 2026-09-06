@@ -1,6 +1,6 @@
 package com.clemente.registrodenotas
 
-import android.R
+
 import android.os.Bundle
 import android.widget.Space
 import androidx.activity.ComponentActivity
@@ -85,6 +85,15 @@ fun pantallaPrincipal() {
     var notaFundamentos by remember {
         mutableFloatStateOf(0f)
     }
+    var notaPoo by remember {
+        mutableFloatStateOf(0f)
+    }
+    var notaMoviles by remember {
+        mutableFloatStateOf(0f)
+    }
+    var notaBaseDatos by remember {
+        mutableFloatStateOf(0f)
+    }
 
     Scaffold(
         topBar = {
@@ -115,6 +124,33 @@ fun pantallaPrincipal() {
                 nota = notaFundamentos,
                 onNotaChange = {
                     notaFundamentos = it
+                }
+            )
+
+            cursoSlider(
+                texto = "Programación Orientada a Objetos",
+                peso = 25,
+                nota = notaPoo,
+                onNotaChange = {
+                    notaPoo = it
+                }
+            )
+
+            cursoSlider(
+                texto = "Programación en Móviles",
+                peso = 30,
+                nota = notaMoviles,
+                onNotaChange = {
+                    notaMoviles = it
+                }
+            )
+
+            cursoSlider(
+                texto = "Base de Datos",
+                peso = 25,
+                nota = notaBaseDatos,
+                onNotaChange = {
+                    notaBaseDatos = it
                 }
             )
         }
