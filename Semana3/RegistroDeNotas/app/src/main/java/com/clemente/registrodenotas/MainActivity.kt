@@ -122,6 +122,13 @@ fun pantallaPrincipal() {
             promedioPonderado
         }
 
+    val observacion = when {
+        promedioFinal >= 17 -> "EXCELENTE"
+        promedioFinal >= 13 -> "APROBADO"
+        promedioFinal >= 10 -> "EN RECUPERACIÓN"
+        else -> "DESAPROBADO"
+    }
+
 
 
 
@@ -228,10 +235,12 @@ fun pantallaPrincipal() {
             }
 
             if (promedioCalculado) {
-                Text(
-                    text = "Promedio final: ${
-                        String.format(Locale.US, "%.2f", promedioFinal)
-                    }"
+
+                resultados(
+                    promedioPonderado = promedioPonderado,
+                    promedioFinal = promedioFinal,
+                    redondeado = redondearPromedio,
+                    observacion = observacion
                 )
             }
 
@@ -287,3 +296,43 @@ fun cursoSlider(
     }
 }
 
+
+@Composable
+fun resultados(
+    promedioPonderado: Double,
+    promedioFinal: Double,
+    redondeado: Boolean,
+    observacion: String
+) {
+
+    Column {
+
+        Text(
+            text = "Promedio ponderado: ${
+                String.format(
+                    Locale.US,
+                    "%.2f",
+                    promedioPonderado
+                )
+            }"
+        )
+
+        Text(
+            text = "Promedio final: ${
+                if (redondeado) {
+                    promedioFinal.toInt()
+                } else {
+                    String.format(
+                        Locale.US,
+                        "%.2f",
+                        promedioFinal
+                    )
+                }
+            }"
+        )
+
+        Text(
+            text = observacion
+        )
+    }
+}
