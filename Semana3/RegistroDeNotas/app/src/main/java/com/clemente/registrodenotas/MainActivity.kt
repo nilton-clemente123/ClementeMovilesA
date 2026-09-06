@@ -1,8 +1,6 @@
 package com.clemente.registrodenotas
 
-
 import android.os.Bundle
-import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -18,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -59,7 +56,6 @@ import com.clemente.registrodenotas.ui.theme.RegistroDeNotasTheme
 import java.util.Locale
 import kotlin.math.roundToInt
 
-
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,9 +65,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             RegistroDeNotasTheme {
-
                 pantallaPrincipal()
-
             }
         }
     }
@@ -95,15 +89,12 @@ fun pantallaPrincipal() {
         mutableFloatStateOf(0f)
     }
 
-
     var redondearPromedio by remember {
         mutableStateOf(false)
     }
-
     var confirmarNotas by remember {
         mutableStateOf(false)
     }
-
     var promedioCalculado by remember {
         mutableStateOf(false)
     }
@@ -114,13 +105,12 @@ fun pantallaPrincipal() {
                 notaMoviles * 0.30 +
                 notaBaseDatos * 0.25
 
-
     val promedioFinal: Double =
         if (redondearPromedio) {
-            promedioPonderado.roundToInt().toDouble()
-        } else {
-            promedioPonderado
-        }
+        promedioPonderado.roundToInt().toDouble()
+    } else {
+        promedioPonderado
+    }
 
     val observacion = when {
         promedioFinal >= 17 -> "EXCELENTE"
@@ -129,135 +119,223 @@ fun pantallaPrincipal() {
         else -> "DESAPROBADO"
     }
 
+    val colorObservacion = when {
+        promedioFinal >= 17 -> Color(0xFF2F5734)
+        promedioFinal >= 13 -> Color(0xFFA5D6A7)
+        promedioFinal >= 10 -> Color(0xFFFFE0B2)
+        else -> Color(0xFFFFCDD2)
+    }
 
-
-
-
+    val colorTextoObservacion = when {
+        promedioFinal >= 17 -> Color(0xFFFFFFFF)
+        promedioFinal >= 13 -> Color(0xFF2E7D32)
+        promedioFinal >= 10 -> Color(0xFFE67700)
+        else -> Color(0xFFB71C1C)
+    }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text("Registro de Notas")
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = Color.White
+                )
+            )
+        },
+
+        bottomBar = {
+            Text(
+                text = "Desarrollado por: Javier Clemente Guzmán",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.bodySmall
             )
         }
+
     ) { innerPadding ->
 
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(16.dp)
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0xFFD7D0EF),
+                            Color.White
+                        )
+                    )
+                )
         ) {
-
-            Text(
-                text = "Notas del ciclo",
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-
-            cursoSlider(
-                texto = "Fundamentos de Programación",
-                peso = 20,
-                nota = notaFundamentos,
-                onNotaChange = {
-                    notaFundamentos = it
-                }
-            )
-
-            cursoSlider(
-                texto = "Programación Orientada a Objetos",
-                peso = 25,
-                nota = notaPoo,
-                onNotaChange = {
-                    notaPoo = it
-                }
-            )
-
-            cursoSlider(
-                texto = "Programación en Móviles",
-                peso = 30,
-                nota = notaMoviles,
-                onNotaChange = {
-                    notaMoviles = it
-                }
-            )
-
-            cursoSlider(
-                texto = "Base de Datos",
-                peso = 25,
-                nota = notaBaseDatos,
-                onNotaChange = {
-                    notaBaseDatos = it
-                }
-            )
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .verticalScroll(
+                        rememberScrollState()
+                    )
             ) {
 
-                Text("Redondear promedio final")
-
-                Switch(
-                    checked = redondearPromedio,
-                    onCheckedChange = {
-                        redondearPromedio = it
-                    }
+                Text(
+                    text = "Notas del ciclo",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
                 )
-            }
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+                Text(
+                    text = "Deslizar para asignar cada nota (0 a 20)",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = Color(0xFF7E7E7E)
+                )
 
-                Checkbox(
-                    checked = confirmarNotas,
-                    onCheckedChange = {
-                        confirmarNotas = it
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+
+                cursoSlider(
+                    texto = "Fundamentos de Programación",
+                    peso = 20,
+                    nota = notaFundamentos,
+                    onNotaChange = {
+                        notaFundamentos = it
+                        promedioCalculado = false
                     }
                 )
 
-                Text("Confirmo que las notas son correctas")
-            }
+                cursoSlider(
+                    texto = "Programación Orientada a Objetos",
+                    peso = 25,
+                    nota = notaPoo,
+                    onNotaChange = {
+                        notaPoo = it
+                        promedioCalculado = false
+                    }
+                )
 
+                cursoSlider(
+                    texto = "Programación en Móviles",
+                    peso = 30,
+                    nota = notaMoviles,
+                    onNotaChange = {
+                        notaMoviles = it
+                        promedioCalculado = false
+                    }
+                )
 
-            Button(
-                onClick = {
-                    promedioCalculado = true
-                },
-                enabled = confirmarNotas,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("CALCULAR PROMEDIO")
-            }
+                cursoSlider(
+                    texto = "Base de Datos",
+                    peso = 25,
+                    nota = notaBaseDatos,
+                    onNotaChange = {
+                        notaBaseDatos = it
+                        promedioCalculado = false
+                    }
+                )
 
-            if (promedioCalculado) {
+                Spacer(
+                    modifier = Modifier.height(10.dp)
+                )
 
-                resultados(
-                    promedioPonderado = promedioPonderado,
-                    promedioFinal = promedioFinal,
-                    redondeado = redondearPromedio,
-                    observacion = observacion
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Text(
+                        text = "Redondear promedio final"
+                    )
+
+                    Switch(
+                        checked = redondearPromedio,
+                        onCheckedChange = {
+                            redondearPromedio = it
+                            promedioCalculado = false
+                        }
+                    )
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Checkbox(
+                        checked = confirmarNotas,
+                        onCheckedChange = {
+                            confirmarNotas = it
+                        }
+                    )
+
+                    Text(
+                        text = "Confirmo que las notas son correctas"
+                    )
+                }
+
+                Spacer(
+                    modifier = Modifier.height(10.dp)
+                )
+
+                Button(
+                    onClick = {
+                        promedioCalculado = true
+                    },
+                    enabled = confirmarNotas,
+                    modifier = Modifier.fillMaxWidth()
+
+                ) {
+                    Text(
+                        text = "CALCULAR PROMEDIO"
+                    )
+                }
+
+                Spacer(
+                    modifier = Modifier.height(16.dp)
+                )
+
+                if (promedioCalculado) {
+
+                    resultados(
+                        promedioPonderado = promedioPonderado,
+                        promedioFinal = promedioFinal,
+                        redondeado = redondearPromedio,
+                        observacion = observacion,
+                        colorObservacion = colorObservacion,
+                        colorTextoObservacion = colorTextoObservacion
+                    )
+
+                    Spacer(
+                        modifier = Modifier.height(10.dp)
+                    )
+
+                    Text(
+                        text = "✓ Promedio calculado correctamente",
+                        color = Color(0xFF2E7D32),
+                        fontWeight = FontWeight.Bold
+                    )
+
+                } else {
+
+                    Text(
+                        text = "Asigna las notas y confirma para calcular",
+                        color = Color.Gray
+                    )
+                }
+
+                Spacer(
+                    modifier = Modifier.height(30.dp)
                 )
             }
-
         }
     }
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun PantallaPreview() {
-    RegistroDeNotasTheme {
-        pantallaPrincipal()
-    }
-}
-
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun cursoSlider(
     texto: String,
@@ -267,7 +345,9 @@ fun cursoSlider(
 ) {
 
     Column(
-        modifier = Modifier.padding(vertical = 7.dp)
+        modifier = Modifier.padding(
+            vertical = 7.dp
+        )
     ) {
 
         Row(
@@ -282,16 +362,39 @@ fun cursoSlider(
 
             Text(
                 text = nota.toInt().toString(),
+                color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
         }
 
         Slider(
             value = nota,
-            onValueChange = onNotaChange,
+            onValueChange = {
+                onNotaChange(it)
+            },
             valueRange = 0f..20f,
             steps = 19,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+
+            track = { sliderState ->
+                SliderDefaults.Track(
+                    sliderState = sliderState,
+                    drawTick = { _, _ ->
+
+                    }
+                )
+            },
+
+            thumb = {
+                Box(
+                    modifier = Modifier
+                        .size(20.dp)
+                        .background(
+                            color = Color(0xFF655399),
+                            shape = CircleShape
+                        )
+                )
+            }
         )
     }
 }
@@ -299,40 +402,132 @@ fun cursoSlider(
 
 @Composable
 fun resultados(
+
     promedioPonderado: Double,
     promedioFinal: Double,
     redondeado: Boolean,
-    observacion: String
+    observacion: String,
+    colorObservacion: Color,
+    colorTextoObservacion: Color
+
 ) {
 
-    Column {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
 
-        Text(
-            text = "Promedio ponderado: ${
-                String.format(
-                    Locale.US,
-                    "%.2f",
-                    promedioPonderado
-                )
-            }"
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        ),
+
+        border = BorderStroke(
+            width = 2.dp,
+            color = Color(0xFFD4B5E5)
         )
 
-        Text(
-            text = "Promedio final: ${
-                if (redondeado) {
-                    promedioFinal.toInt()
-                } else {
+    ) {
+
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
+
+            Text(
+                text = "Promedio ponderado: ${
                     String.format(
                         Locale.US,
                         "%.2f",
-                        promedioFinal
+                        promedioPonderado
                     )
-                }
-            }"
-        )
+                }",
 
-        Text(
-            text = observacion
-        )
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
+            Text(
+                text = buildAnnotatedString {
+
+                    withStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.secondary
+                        )
+                    ) {
+
+                        append(
+                            if (redondeado) {
+                                "Promedio final: ${promedioFinal.toInt()} "
+                            } else {
+                                "Promedio final: " +
+                                        String.format(
+                                            Locale.US,
+                                            "%.2f",
+                                            promedioFinal
+                                        )
+                            }
+                        )
+                    }
+
+                    if (redondeado) {
+
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color(0xFF818181),
+                                fontSize = 15.sp
+                            )
+                        ) {
+                            append("(redondeado)")
+                        }
+                    }
+                },
+
+                fontSize = 20.sp
+            )
+
+            Spacer(
+                modifier = Modifier.height(12.dp)
+            )
+
+            AssistChip(
+
+                onClick = {},
+
+                label = {
+                    Text(
+                        text = observacion,
+                        color = colorTextoObservacion
+                    )
+                },
+
+                colors = AssistChipDefaults.assistChipColors(
+                    containerColor = colorObservacion
+                )
+            )
+        }
+    }
+
+    Spacer(
+        Modifier.height(5.dp)
+    )
+
+    Text(
+        text = " Promedio calculado correctamente",
+        color = Color(0xFF0F8C1B),
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun PantallaPreview() {
+
+    RegistroDeNotasTheme {
+
+        pantallaPrincipal()
     }
 }
