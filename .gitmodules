@@ -10,3 +10,6 @@
 [submodule "Semana3/TareaTeoria/SistemaCuotas-Clemente"]
 	path = Semana3/TareaTeoria/SistemaCuotas-Clemente
 	url = https://github.com/nilton-clemente123/SistemaCuotas-Clemente.git
+[submodule "Semana4/lab04-carrito-clemente"]
+	path = Semana4/lab04-carrito-clemente
+	url = https://github.com/nilton-clemente123/lab04-carrito-clemente.git
