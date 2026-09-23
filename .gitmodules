@@ -16,3 +16,6 @@
 [submodule "Semana5/Semana5_NavLab"]
 	path = Semana5/Semana5_NavLab
 	url = https://github.com/nilton-clemente123/Semana5_NavLab.git
+[submodule "Semana5/Semana_5_Clinica_Salud"]
+	path = Semana5/Semana_5_Clinica_Salud
+	url = https://github.com/nilton-clemente123/Lab_05_Clinica-Salud-.git
