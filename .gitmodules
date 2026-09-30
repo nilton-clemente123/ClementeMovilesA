@@ -19,3 +19,6 @@
 [submodule "Semana5/Semana_5_Clinica_Salud"]
 	path = Semana5/Semana_5_Clinica_Salud
 	url = https://github.com/nilton-clemente123/Lab_05_Clinica-Salud-.git
+[submodule "Semana6/Lab06_TecsupStore"]
+	path = Semana6/Lab06_TecsupStore
+	url = https://github.com/nilton-clemente123/ClementeMovilesA.git
