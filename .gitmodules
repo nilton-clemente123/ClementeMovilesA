@@ -22,3 +22,9 @@
 [submodule "Semana6/Lab06_TecsupStore"]
 	path = Semana6/Lab06_TecsupStore
 	url = https://github.com/nilton-clemente123/ClementeMovilesA.git
+[submodule "Semana6/lab06_TecsupStore"]
+	path = Semana6/lab06_TecsupStore
+	url = https://github.com/nilton-clemente123/Lab06_TecsupStore.git
+[submodule "Semana6/Tarea_MiBodega"]
+	path = Semana6/Tarea_MiBodega
+	url = https://github.com/nilton-clemente123/Tarea_MiBodega.git
