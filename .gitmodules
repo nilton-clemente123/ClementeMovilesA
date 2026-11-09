@@ -31,3 +31,6 @@
 [submodule "Semana8/CafeCampusClemente"]
 	path = Semana8/CafeCampusClemente
 	url = https://github.com/nilton-clemente123/CafeCampus_Clemente.git
+[submodule "Semana12/CatalogoSmartphones"]
+	path = Semana12/CatalogoSmartphones
+	url = https://github.com/nilton-clemente123/CatalogoSmartphones.git
