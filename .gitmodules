@@ -34,3 +34,12 @@
 [submodule "Semana12/CatalogoSmartphones"]
 	path = Semana12/CatalogoSmartphones
 	url = https://github.com/nilton-clemente123/CatalogoSmartphones.git
+[submodule "Semana9/MuroCampusClemente"]
+	path = Semana9/MuroCampusClemente
+	url = https://github.com/nilton-clemente123/MuroCampus.git
+[submodule "Semana14/GPSCampusClemente"]
+	path = Semana14/GPSCampusClemente
+	url = https://github.com/nilton-clemente123/CampusGPS-Clemente.git
+[submodule "Semana15/AvisosCampusClemente"]
+	path = Semana15/AvisosCampusClemente
+	url = https://github.com/nilton-clemente123/AvisosCampusClemente.git
